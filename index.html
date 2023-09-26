@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <!--<script src="script.js"></script>-->
+</head>
+<body>
+    <!--Inicio containers-->
+    <div class="container info">
+        <div class="servers">
+            <button onclick="showContainer('search')">Buscar</button>
+            <button onclick="showContainer('profile')">perfil</button>
+            <div onclick="showChanels('chanels')">
+                <img src="server.jpg" alt="picServer">
+                <span class="serverName"> Example Server</span>
+            </div>
+        </div>
+        <div class="user">
+           <img src="icon.jpg" alt="picUsuario" onclick="showContainer('profile')">
+           <span class="userName">Username</span>
+           <a href="#" onclick="showFloat('login')">Login</a>
+        </div>
+    </div>
+
+    <div id="chanels" class="container chanels">
+        <div class="listChanels">
+            <span>Canal1</span>
+            <span>Canal2</span>
+            <span>Canal3</span>
+        </div>
+        <div class="newChanel">
+            <a href="#" onclick="showFloat('createChanel')">Crear Canal</a>
+        </div>
+    </div>
+
+    <div class="container chat" id="chat">
+       <div class="headServer">
+           <img src="server.jpg" alt="picServer">
+           <span class="serverName">serverName</span>
+       </div>
+       <div class="chatSpace"><span>hola a todos</span></div>
+       <div class="smsSpace">
+           <form action="?sendSMS">
+               <input type="text" placeholder="escribe tu mensaje">
+               <input type="submit" value="send">
+           </form>
+       </div>
+    </div>
+    
+    <div class="container search" id="search">
+       <button onclick="showContainer('chat')">x</button>
+       Busca servidores
+       <div>
+           <p onclick="showFloat('createServer')">Crear Server</p>
+       </div>
+       <div>
+           Servers disponibles
+           <ul>
+               <li><p onclick="showFloat('joinServer')">Server1</p></li>
+           </ul>
+       </div>
+       <div>Contactos</div>
+    </div>
+    
+    <div class="container profile" id="profile">
+        <button onclick="showContainer('chat')">x</button>
+        <div class="data">
+            <img src="icon.jpg" alt="picUsuario">
+            <div>
+                <span class="userName">Username</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+                <span>Correo</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+                <span>Nombre Completo</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+                <span>Contrase;a</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+            </div>
+        </div>
+        <div></div>
+    </div>
+    <!--fin containers-->
+
+    <!-- ventanas flotantes-->
+    <div class="window">
+    
+        <div class="float" id="login">
+            <form id="loginForm"action="?"> <!--agrege id loginForm para llamarlo desde el scrip-->
+                <p>Iniciar sesion</p>
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="******">
+                <input type="submit" value="login">
+                <label>"no se encuentra el usuario"</label>
+                <p>?No tienes cuenta?<a href="#" onclick="showFloat('regin')">Registrarse</a></p>
+            </form>
+        </div>
+        
+        <div class="float" id="regin">
+            <form action="?">
+                <p>Crear Cuenta</p>
+                <input type="email" placeholder="example@mail.com">
+                <input type="text" placeholder="Username">
+                <input type="text" placeholder="Nombre">
+                <input type="password" placeholder="******">
+                <input type="date">
+                <input type="submit" value="Crear Cuenta">
+            </form>
+        </div>
+        
+        <div class="float" id="joinServer">
+            <p>Quieres unirte al servidor ${server}?</p>
+            <button onclick="alert('OK'); location.href=''">yes</button>
+            <button onclick="location.href=''">no</button>
+        </div>
+        
+        <div class="float" id="createServer">
+            <form action="?">
+                <span>Crear Servidor</span>
+                <span>Nombre:</span><input type="text" placeholder="Server">
+                <input type="submit" value="Cancelar">
+                <input type="submit" value="Crear">
+            </form>
+        </div>
+        
+        <div class="float" id="createChanel">
+            <form action="?">
+                <span>Crear Canal</span>
+                <span>Nombre:</span><input type="text" placeholder="Canal">
+                <input type="submit" value="Cancelar">
+                <input type="submit" value="Crear">
+            </form>
+        </div>
+        
+        <div class="float" id="changeValue">
+            <form action="?">
+                <span>Cambiar ${value}</span>
+                <input type="text" placeholder="Nuevo ${value}">
+                <input type="submit" value="Cambiar">
+            </form>
+        </div>
+
+   </div>
+   <script src="script.js"></script>
+</body>
+</html>

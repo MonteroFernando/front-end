@@ -1,0 +1,131 @@
+:root{
+--color1: #32443c;
+--color2: #445950; 
+--color3: #2e3b35;
+--color4: #171e1b; 
+--color5: #000000;
+--color6: #1e60449c;
+}
+body{
+    margin:0;
+    display:flex;
+}
+.container{
+    display:block;
+    height:100vh;
+}
+/*servers*/
+.container.info{
+    width:30%;
+}
+.container.info>.servers{
+    height:90vh;
+    background:var(--color1);
+}
+.container.info>.servers>div{
+    display:flex;
+    align-items:center;
+    height:10vh;
+}
+.container.info>.servers>div>img{
+    height:80%;
+}
+.container.info>.user, .container.chat>.headServer{
+    background: var(--color4);
+    height:10vh;
+    align-items:center;
+    display:flex;
+}
+.container.info>.user>img , .container.chat>.headServer>img{
+    height:80%;
+    border-radius:50%;
+    padding:6px;
+}
+.container.info>.user>span{
+    padding-left:20px;
+}
+/*chat*/
+.container.chat{
+    width:70%;
+}
+.container.chat>.chatSpace{
+    height:80vh;
+    background:var(--color2);
+}
+.container.chat>.smsSpace{
+    height:10vh;
+    padding:10px;
+    background:var(--color3);
+}
+.container.chat>.smsSpace>form{
+    width:100%;
+}
+.container.chat>.smsSpace>form>input[type=text]{
+    width:90%;
+    height:6vh;
+    background: var(--color4);
+    border: none;
+    text-indent: 15px;
+    border-radius: 4px;
+}
+.container.chat>.smsSpace>form>input[type=submit]{
+    height:6vh;
+}
+/*chanels*/
+.container.chanels{
+    width:30%;
+    display:none;
+}
+.container.chanels>.listChanels{
+    height:90vh;
+    background:var(--color3);
+}
+.container.chanels>.newChanel{
+    height:10vh;
+    background:var(--color2);
+}
+/*search*/
+.container.search{
+    display:none;
+    width:70%;
+    background:var(--color2);
+}
+/*profile*/
+.container.profile{
+    display:none;
+    width:70%;
+    background:var(--color2);
+}
+.container.profile>.data{
+    display:flex;
+    align-items:center;
+}
+.container.profile>.data>div{
+    display:grid;
+    margin-left:20px;
+}
+.container.profile>.data>div>a{
+    grid-column:2;
+}
+/*ventanas flotantes*/
+.window{
+    width:100%;
+    height:100vh;
+    position:absolute;
+    background:var(--color6);
+    display:none;
+}
+.window>.float{
+    margin:auto;
+    border-radius:10px;
+    background:var(--color2);
+    display:none;
+}
+.window>.float> form{
+    margin:auto;
+    display:grid;
+}
+.window>.float> form > input{
+    margin:10px;
+    border-radius: 3px;
+}
