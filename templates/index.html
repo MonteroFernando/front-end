@@ -13,12 +13,12 @@
             <button onclick="showContainer('search')">Buscar</button>
             <button onclick="showContainer('profile')">perfil</button>
             <div onclick="showChanels('chanels')">
-                <img src="server.jpg" alt="picServer">
+                <img src="../assets/server.jpg" alt="picServer">
                 <span class="serverName"> Example Server</span>
             </div>
         </div>
         <div class="user">
-           <img src="icon.jpg" alt="picUsuario" onclick="showContainer('profile')">
+           <img src="../assets/icon.jpg" alt="picUsuario" onclick="showContainer('profile')">
            <span class="userName">Username</span>
            <a href="#" onclick="showFloat('login')">Login</a>
         </div>
@@ -37,7 +37,7 @@
 
     <div class="container chat" id="chat">
        <div class="headServer">
-           <img src="server.jpg" alt="picServer">
+           <img src="../assets/server.jpg" alt="picServer">
            <span class="serverName">serverName</span>
        </div>
        <div class="chatSpace"><span>hola a todos</span></div>
@@ -67,7 +67,7 @@
     <div class="container profile" id="profile">
         <button onclick="showContainer('chat')">x</button>
         <div class="data">
-            <img src="icon.jpg" alt="picUsuario">
+            <img src="../assets/icon.jpg" alt="picUsuario">
             <div>
                 <span class="userName">Username</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
                 <span>Correo</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
@@ -83,24 +83,24 @@
     <div class="window">
     
         <div class="float" id="login">
-            <form id="loginForm"action="?"> <!--agrege id loginForm para llamarlo desde el scrip-->
+            <form id="loginForm"> <!--agrege id loginForm para llamarlo desde el scrip-->
                 <p>Iniciar sesion</p>
                 <input type="text" placeholder="Username">
                 <input type="password" placeholder="******">
                 <input type="submit" value="login">
-                <label>"no se encuentra el usuario"</label>
+                <label id="label_not_login">No se pudo iniciar la sesion</label>
                 <p>?No tienes cuenta?<a href="#" onclick="showFloat('regin')">Registrarse</a></p>
             </form>
         </div>
         
         <div class="float" id="regin">
-            <form action="?">
+            <form id="registFrom">
                 <p>Crear Cuenta</p>
-                <input type="email" placeholder="example@mail.com">
                 <input type="text" placeholder="Username">
-                <input type="text" placeholder="Nombre">
+                <input type="email" placeholder="example@mail.com">
                 <input type="password" placeholder="******">
-                <input type="date">
+                <input type="text" placeholder="Nombre">
+                <input type="text" placeholder="Apellido">
                 <input type="submit" value="Crear Cuenta">
             </form>
         </div>

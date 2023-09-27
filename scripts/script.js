@@ -46,9 +46,9 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     login();
 });
 
-document.getElementById("loginForm").addEventListener("submit", function (event) {
+document.getElementById("registForm").addEventListener("submit", function (event) {
     event.preventDefault();
-    login();
+    register();
 });
 
 
@@ -66,10 +66,27 @@ function login(){
     .then(data =>{
         const user=data[0];
         if (user && user.password===password){
-            window.location.href = 'ingreso.html';
-
+            
+        }else{
+            var label=document.getElementById("label_not_login")
+            label.style.display="block"
+            label.textContent="Contraseña Incorrecta"
         }
 
     })
+
+}
+
+function register(){
+    const data = {
+        username:document.querySelector("#registForm input[type='text']").value,
+        email:document.querySelector("#registForm input[type='email]").value,
+        password:document.querySelector("#registForm input[type='password]").value,
+        firstname:document.querySelector("#registForm input[type='text]").value,
+        lastname:document.querySelector("#registForm input[type='text]").value,
+
+    }
+
+    const fer=1234;
 
 }
