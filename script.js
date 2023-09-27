@@ -39,27 +39,35 @@ const showChanels=()=>{
     }
 }
 
-//Login
+//Eventos en formularios
 
 document.getElementById("loginForm").addEventListener("submit", function (event) {
     event.preventDefault();
     login();
 });
 
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    login();
+});
+
+
+
 //funciones
 function login(){
     const username=document.querySelector("#loginForm input[type='text']").value;
     const password=document.querySelector("#loginForm input[type='password']").value;
 
-    fetch("http://127.0.0.1:5001/users/get?username=${username}",{
+    fetch(`http://127.0.0.1:5001/users/get?username=${username}`,{
         method:'GET',
-        credentials:'include'
+        /*credentials:'include'*/
     })
     .then (response => response.json()) 
     .then(data =>{
         const user=data[0];
-        if (user.password===password){
-            window.location.href = 'ingreso.html'
+        if (user && user.password===password){
+            window.location.href = 'ingreso.html';
+
         }
 
     })
