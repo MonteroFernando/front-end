@@ -92,12 +92,43 @@ function login(){
             pictureElement=document.querySelector(".container.profile .data img");
             pictureElement.src=rutePicture;
 
+            //ingreso de servidores
 
+            var servers=user.servers
+
+            if (servers.length>1){
+
+                for (var i=0;i<servers.length;i++){
+                    var newDiv = document.createElement("div");
+                    var span_server=document.createElement("span");
+                    span_server.textContent=servers[i].name;
+                    span_server.className="serverName";
+                    var img_server=document.createElement("img");
+                    img_server.alt="picServer";
+                    if (servers[i].img ===null){
+                        var picture="../assets/server/server.jpg"
+                    }else{
+                        var picture="../assets/server/"+servers[i].img
+                    };
+                    img_server.src=picture;
+                    var span_server_id=document.createElement("span");
+                    span_server_id.textContent=servers[i].id;
+                    span_server_id.id=servers[i].id
+
+                }
+            }else{
+                var newDiv=document.createElement("div");
+                var newSpan=document.createElement("span");
+                newSpan.textContent="SIN SERVIDORES SELECCIONADOS"
+                newDiv.appendChild(newSpan)
+                document.querySelector(".container.info .servers").appendChild(newDiv)
+            }
         }else{
             document.getElementById("label_not_login").style.display="flex"
             document.getElementById("label_not_login").textContent="Cotraseña Incorrecta"
             
         }
+
 
     })
 

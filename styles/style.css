@@ -26,9 +26,12 @@ body{
     display:flex;
     align-items:center;
     height:10vh;
+    /*display: none;*/
 }
 .container.info>.servers>div>img{
-    height:80%;
+    width: 50px;
+    height: auto;
+    border-radius: 100%;
 }
 .container.info>.user, .container.chat>.headServer{
     background: var(--color4);
