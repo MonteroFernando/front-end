@@ -9,13 +9,15 @@
 <body>
     <!--Inicio containers-->
     <div class="container info">
-        <div class="servers">
+        <div class="search_servers">
             <button onclick="showContainer('search')">Buscar</button>
             <button onclick="showContainer('profile')">perfil</button>
-            <div onclick="showChanels('chanels')">
+        </div>
+        <div class="servers">
+            <!--<div onclick="showChanels('chanels')">
                 <img src="../assets/server/server.jpg" alt="picServer">
                 <span class="serverName"> Example Server</span>
-            </div>
+            </div>-->
         </div>
         <div class="user">
            <img src="../assets/user/user.png" alt="picUsuario" onclick="showContainer('profile')">
@@ -23,14 +25,13 @@
            <span class="userId">000</span>
            <span class="userName">Username</span>
            <span></span>
-           <a href="#" onclick="showFloat('login')">Login</a>
+           <a href="#" onclick="location.reload()">Login</a>
         </div>
     </div>
 
     <div id="chanels" class="container chanels">
         <div class="listChanels">
             <!--<span>Canal1</span>-->
-            
         </div>
         <div class="newChanel">
             <a href="#" onclick="showFloat('createChanel')">Crear Canal</a>

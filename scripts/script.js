@@ -30,12 +30,19 @@ const showFloat=(id)=>{
 }
 
 //toggle chanels
-const showChanels=()=>{
+const showChanels=(id)=>{
     var chan=document.getElementById("chanels");
     if(chan.style.display=="block"){
         chan.style.display="none";
+        document.querySelector(".listChanels").innerHTML = ''
     }else{
         chan.style.display="block";
+        var m=document.createElement("span");
+        m.textContent=id;
+        var listChanels = document.querySelector(".listChanels");
+        listChanels.appendChild(m);
+
+        
     }
 }
 
@@ -66,11 +73,9 @@ function login(){
     .then(data =>{
         const user=data[0];
         if (user && user.password===password){
-            //Limpiar los datos del login y ocultar
+            //Limpiar los datos del login anterior y ocultar
             document.querySelector(".window").style.display="none";
-            document.querySelector("#loginForm input[type='text']").value="";
-            document.querySelector("#loginForm input[type='password']").value="";
-            document.getElementById("label_not_login").style.display="none"    
+            document.getElementById("label_not_login").style.display="none"
             //ingreso de datos al container info
             document.querySelector(".userId").textContent=user.id;
             document.querySelector(".userName").textContent=user.username;
@@ -100,20 +105,37 @@ function login(){
 
                 for (var i=0;i<servers.length;i++){
                     var newDiv = document.createElement("div");
+                    (function(id){
+                        newDiv.onclick=function(){
+                            showChanels(id);
+                        };
+                    })(servers[i].id);
                     var span_server=document.createElement("span");
                     span_server.textContent=servers[i].name;
                     span_server.className="serverName";
+                    
+                    var span_join=document.createElement("span");
+                    span_join.textContent=" __ id#";
+                    
                     var img_server=document.createElement("img");
                     img_server.alt="picServer";
                     if (servers[i].img ===null){
                         var picture="../assets/server/server.jpg"
                     }else{
-                        var picture="../assets/server/"+servers[i].img
+                        var picture="../assets/server/"+servers[i].img;
                     };
                     img_server.src=picture;
+                    
                     var span_server_id=document.createElement("span");
                     span_server_id.textContent=servers[i].id;
-                    span_server_id.id=servers[i].id
+                    span_server_id.id=servers[i].id;
+                    
+                    newDiv.appendChild(img_server);
+                    newDiv.appendChild(span_server);
+                    newDiv.appendChild(span_join);
+                    newDiv.appendChild(span_server_id);
+
+                    document.querySelector(".container.info .servers").appendChild(newDiv)
 
                 }
             }else{

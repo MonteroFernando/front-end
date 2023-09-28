@@ -17,16 +17,17 @@ body{
 /*servers*/
 .container.info{
     width:30%;
+    background:var(--color1);
 }
 .container.info>.servers{
     height:90vh;
-    background:var(--color1);
+    
 }
 .container.info>.servers>div{
     display:flex;
     align-items:center;
     height:10vh;
-    /*display: none;*/
+    
 }
 .container.info>.servers>div>img{
     width: 50px;
