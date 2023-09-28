@@ -69,12 +69,13 @@
     <div class="container profile" id="profile">
         <button onclick="showContainer('chat')">x</button>
         <div class="data">
-            <img src="../assets/user/icon.jpg" alt="picUsuario">
+            <img src="../assets/user/icon.jpg" alt="picUsuario" width="200" height="auto"><!--Se establece el tamaño aqui para que no traiga cambios de tamaño inesperado-->
             <div>
                 <span class="userName">Username</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
-                <span>Correo</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
-                <span>Nombre Completo</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
-                <span>Contrase;a</span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+                <span class="email">Correo: </span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+                <span class="firstname">Nombre: </span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+                <span class="lastname">Apellido: </span><a href="#" onclick="showFloat('changeValue')">Editar</a>
+                <span class="password">Contraseña: </span><a href="#" onclick="showFloat('changeValue')">Editar</a>
             </div>
         </div>
         <div></div>
@@ -96,7 +97,7 @@
         </div>
         
         <div class="float" id="regin">
-            <form id="registFrom">
+            <form id="registForm">
                 <p>Crear Cuenta</p>
                 <input type="text" placeholder="Username">
                 <input type="email" placeholder="example@mail.com">

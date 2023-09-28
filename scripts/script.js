@@ -46,10 +46,10 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     login();
 });
 
-/*document.getElementById("registForm").addEventListener("submit", function (event) {
+document.getElementById("registForm").addEventListener("submit", function (event) {
     event.preventDefault();
     register();
-});*/
+});
 
 
 
@@ -66,18 +66,31 @@ function login(){
     .then(data =>{
         const user=data[0];
         if (user && user.password===password){
+            //Limpiar los datos del login y ocultar
             document.querySelector(".window").style.display="none";
-            document.querySelector(".userId").textContent=user.id;
-            document.querySelector(".userName").textContent=user.username;
-            var pictureElement=document.querySelector(".user img");
             document.querySelector("#loginForm input[type='text']").value="";
             document.querySelector("#loginForm input[type='password']").value="";
             document.getElementById("label_not_login").style.display="none"    
+            //ingreso de datos al container info
+            document.querySelector(".userId").textContent=user.id;
+            document.querySelector(".userName").textContent=user.username;
+            var pictureElement=document.querySelector(".user img");
+            
             if (user && user.img===null){
-                pictureElement.src="../assets/user/user.png";
+                var rutePicture="../assets/user/user.png";
             }else{
-                pictureElement.src="../assets/user/"+user.img;
+                var rutePicture="../assets/user/"+user.img;
             }
+            pictureElement.src=rutePicture
+            //ingreso de datos al container profile
+            document.querySelector(".container.profile .userName").textContent="Usuario: "+user.username;
+            document.querySelector(".container.profile .email").textContent="email: "+user.email;
+            document.querySelector(".container.profile .firstname").textContent="Nombre: "+user.firstname;
+            document.querySelector(".container.profile .lastname").textContent="Apellido: "+user.lastname;
+            document.querySelector(".container.profile .password").textContent="Contraseña: "+user.password;
+            
+            pictureElement=document.querySelector(".container.profile .data img");
+            pictureElement.src=rutePicture;
 
 
         }else{
@@ -92,14 +105,30 @@ function login(){
 
 function register(){
     const data = {
-        username:document.querySelector("#registForm input[type='text']").value,
+        username:document.querySelector("#registForm input[type='text'][placeholder='Username']").value,
         email:document.querySelector("#registForm input[type='email']").value,
         password:document.querySelector("#registForm input[type='password']").value,
-        firstname:document.querySelector("#registForm input[type='text']").value,
-        lastname:document.querySelector("#registForm input[type='text']").value,
-
+        firstname:document.querySelector("#registForm input[type='text'][placeholder='Nombre']").value,
+        lastname:document.querySelector("#registForm input[type='text'][placeholder='Apellido']").value,
     };
+    const jsonData=JSON.stringify(data);
 
-    const fer=1234;
+    fetch(`http://127.0.0.1:5001/users/create`,{
+        method:'POST',
+        body:jsonData,
+        headers:{
+            'Content-Type':'application/json'
+        },
+        
+    })
+    .then(response=>{
+        if (response.ok){
+            alert("Usuario creado con éxito.");
+            location.reload();
+        }
+    })
+    .catch(error=>{
+        console.error(error)
+    });
 
 }
