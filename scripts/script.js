@@ -46,14 +46,14 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     login();
 });
 
-document.getElementById("registForm").addEventListener("submit", function (event) {
+/*document.getElementById("registForm").addEventListener("submit", function (event) {
     event.preventDefault();
     register();
-});
+});*/
 
 
 
-//funciones
+//Fetching
 function login(){
     const username=document.querySelector("#loginForm input[type='text']").value;
     const password=document.querySelector("#loginForm input[type='password']").value;
@@ -66,11 +66,24 @@ function login(){
     .then(data =>{
         const user=data[0];
         if (user && user.password===password){
-            
+            document.querySelector(".window").style.display="none";
+            document.querySelector(".userId").textContent=user.id;
+            document.querySelector(".userName").textContent=user.username;
+            var pictureElement=document.querySelector(".user img");
+            document.querySelector("#loginForm input[type='text']").value="";
+            document.querySelector("#loginForm input[type='password']").value="";
+            document.getElementById("label_not_login").style.display="none"    
+            if (user && user.img===null){
+                pictureElement.src="../assets/user/user.png";
+            }else{
+                pictureElement.src="../assets/user/"+user.img;
+            }
+
+
         }else{
-            var label=document.getElementById("label_not_login")
-            label.style.display="block"
-            label.textContent="Contraseña Incorrecta"
+            document.getElementById("label_not_login").style.display="flex"
+            document.getElementById("label_not_login").textContent="Cotraseña Incorrecta"
+            
         }
 
     })
@@ -80,12 +93,12 @@ function login(){
 function register(){
     const data = {
         username:document.querySelector("#registForm input[type='text']").value,
-        email:document.querySelector("#registForm input[type='email]").value,
-        password:document.querySelector("#registForm input[type='password]").value,
-        firstname:document.querySelector("#registForm input[type='text]").value,
-        lastname:document.querySelector("#registForm input[type='text]").value,
+        email:document.querySelector("#registForm input[type='email']").value,
+        password:document.querySelector("#registForm input[type='password']").value,
+        firstname:document.querySelector("#registForm input[type='text']").value,
+        lastname:document.querySelector("#registForm input[type='text']").value,
 
-    }
+    };
 
     const fer=1234;
 
