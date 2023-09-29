@@ -28,7 +28,11 @@ const showFloat=(id)=>{
     var toShow=document.getElementById(id);
     toShow.style.display="flex";
 }
-
+//oculta un elemento
+const hideElement=(id)=>{
+    var tohide=document.getElementById(id);
+    tohide.style.display="none";
+}
 //toggle chanels
 const showChanels=(id)=>{
     var chan=document.getElementById("chanels");
@@ -73,13 +77,28 @@ const showChanels=(id)=>{
 const showChats=(id)=>{
     var chat=document.getElementById("chat");
     var messageList=document.getElementById("chatSpace");
+    messageList.innerHTML="";
+    var user=document.getElementById("userName").textContent
     if (chat.style.display==="block"){
         chat.style.display="none";
         messageList.innerHTML="";
     }else{
         chat.style.display="block";
-    }
+        fetch(`http://127.0.0.1:5001/messages/get?id_channels=${id}`,{
+            method:'GET',
 
+        })
+        .then(response=>response.json())
+        .then (data =>{
+            data.forEach(message =>{
+                newMessage(message,user)
+            })
+
+        })
+        .catch(error=>{
+            console.error('Error en obtener la lista de mensajes');
+        })
+    }
 }
 
 //Eventos en formularios
@@ -94,9 +113,13 @@ document.getElementById("registForm").addEventListener("submit", function (event
     register();
 });
 
+document.getElementById("registForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    register();
+});
 
+// Funciones para submit
 
-//Fetching
 function login(){
     const username=document.querySelector("#loginForm input[type='text']").value;
     const password=document.querySelector("#loginForm input[type='password']").value;
@@ -189,6 +212,10 @@ function login(){
 
 
     })
+    .catch(error=>{
+        document.getElementById("label_not_login").style.display="flex"
+        document.getElementById("label_not_login").textContent="No se ingreso el nombre de usuario"
+    })
 
 }
 
@@ -219,5 +246,28 @@ function register(){
     .catch(error=>{
         console.error(error)
     });
+
+}
+
+const newMessage=(message)=>{
+    var chat_panel=document.getElementById("chatSpace");
+    var newMess=document.createElement("div");
+    newMess.id="MessMessage";
+    var newInfo=document.createElement("div");
+    newInfo.id="infoMessage";
+    var newUser=document.createElement("span");
+    newUser.textContent=message.username;
+    var newSplit=document.createElement("span");
+    newSplit.textContent="----";
+    var newDate=document.createElement("span");
+    newDate.textContent=message.created;
+    var newContent=document.createElement("span");
+    newContent.textContent=message.content;
+    newInfo.appendChild(newUser);
+    newInfo.appendChild(newSplit);
+    newInfo.appendChild(newDate);
+    newMess.appendChild(newInfo);
+    newMess.appendChild(newContent);
+    chat_panel.appendChild(newMess);
 
 }

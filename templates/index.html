@@ -8,7 +8,7 @@
 </head>
 <body>
     <!--Inicio containers-->
-    <div class="container info">
+    <div class="container info" id="info">
         <div class="search_servers">
             <button onclick="showContainer('search')">Buscar</button>
             <button onclick="showContainer('profile')">perfil</button>
@@ -23,7 +23,7 @@
            <img src="../assets/user/user.png" alt="picUsuario" onclick="showContainer('profile')">
            <span>#</span>
            <span class="userId">000</span>
-           <span class="userName">Username</span>
+           <span class="userName" id="userName">Username</span>
            <span></span>
            <a href="#" onclick="location.reload()">Login</a>
         </div>
@@ -70,7 +70,7 @@
     </div>
     
     <div class="container profile" id="profile">
-        <button onclick="showContainer('chat')">x</button>
+        <button onclick="hideElement('profile')">x</button>
         <div class="data">
             <img src="../assets/user/icon.jpg" alt="picUsuario" width="200" height="auto"><!--Se establece el tamaño aqui para que no traiga cambios de tamaño inesperado-->
             <div>
@@ -86,7 +86,7 @@
     <!--fin containers-->
 
     <!-- ventanas flotantes-->
-    <div class="window">
+    <div class="window" id="window">
     
         <div class="float" id="login">
             <form id="loginForm"> <!--agrege id loginForm para llamarlo desde el scrip-->
@@ -136,6 +136,7 @@
         </div>
         
         <div class="float" id="changeValue">
+            <button onclick="hideElement('window')">x</button>
             <form action="?">
                 <span>Cambiar ${value}</span>
                 <input type="text" placeholder="Nuevo ${value}">

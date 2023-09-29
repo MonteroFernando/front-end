@@ -9,6 +9,7 @@
 body{
     margin:0;
     display:flex;
+    background-color:var(--color1);
 }
 .container{
     display:block;
