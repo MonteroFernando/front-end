@@ -256,9 +256,9 @@ const newMessage=(message)=>{
 }
 const newServer=(server,element)=>{
     var newDiv = document.createElement("div");
-    (function(id){
+    (function(id,name){
         newDiv.onclick=function(){
-            showChanels(id,server.name);
+            showChanels(id,name);
         };
     })(server.id,server.name);
     var span_server=document.createElement("span");
@@ -312,7 +312,7 @@ function createServer(){
         dataserver.id=server.id
         dataserver.img=null;
         createMember(user,server.id[0]);
-        newServer(dataserver);
+        newServer(dataserver,"serversInfo");
         
     })
     .catch(error=>{
