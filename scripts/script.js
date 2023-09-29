@@ -34,14 +34,20 @@ const hideElement=(id)=>{
     tohide.style.display="none";
 }
 //toggle chanels
-const showChanels=(id)=>{
+const showChanels=(id,name)=>{
     var chan=document.getElementById("chanels");
+    var h2Name=document.createElement("h2");
+    h2Name.textContent=name;
+    document.getElementById("titleChannel").innerHTML=""
+    document.getElementById("titleChannel").appendChild(h2Name)
+
     var listChannels = document.querySelector(".listChanels");
     if(chan.style.display=="block"){
         chan.style.display="none";
         listChannels.innerHTML = ""
     }else{
         chan.style.display="block";
+
         fetch (`http://127.0.0.1:5001/channels/get?server_id=${id}`,{
             method:'GET',
         })
@@ -101,7 +107,7 @@ const showChats=(id)=>{
     }
 }
 
-//Eventos en formularios
+//Eventos en submit
 
 document.getElementById("loginForm").addEventListener("submit", function (event) {
     event.preventDefault();
@@ -113,9 +119,9 @@ document.getElementById("registForm").addEventListener("submit", function (event
     register();
 });
 
-document.getElementById("registForm").addEventListener("submit", function (event) {
+document.getElementById("createServer").addEventListener("submit", function (event) {
     event.preventDefault();
-    register();
+    createServer();
 });
 
 // Funciones para submit
@@ -131,83 +137,55 @@ function login(){
     .then (response => response.json()) 
     .then(data =>{
         const user=data[0];
-        if (user && user.password===password){
-            //Limpiar los datos del login anterior y ocultar
-            document.querySelector(".window").style.display="none";
-            document.getElementById("label_not_login").style.display="none"
-            //ingreso de datos al container info
-            document.querySelector(".userId").textContent=user.id;
-            document.querySelector(".userName").textContent=user.username;
-            var pictureElement=document.querySelector(".user img");
-            
-            if (user && user.img===null){
-                var rutePicture="../assets/user/user.png";
-            }else{
-                var rutePicture="../assets/user/"+user.img;
-            }
-            pictureElement.src=rutePicture
-            //ingreso de datos al container profile
-            document.querySelector(".container.profile .userName").textContent="Usuario: "+user.username;
-            document.querySelector(".container.profile .email").textContent="email: "+user.email;
-            document.querySelector(".container.profile .firstname").textContent="Nombre: "+user.firstname;
-            document.querySelector(".container.profile .lastname").textContent="Apellido: "+user.lastname;
-            document.querySelector(".container.profile .password").textContent="Contraseña: "+user.password;
-            
-            pictureElement=document.querySelector(".container.profile .data img");
-            pictureElement.src=rutePicture;
+        if (data.length===0){
+            document.getElementById("label_not_login").style.display="flex"
+            document.getElementById("label_not_login").textContent="usuario inexistente, registrese!"
+        }else{
+            if (user && user.password===password){
+                //Limpiar los datos del login anterior y ocultar
+                document.querySelector(".window").style.display="none";
+                document.getElementById("label_not_login").style.display="none"
+                //ingreso de datos al container info
+                document.querySelector(".userId").textContent=user.id;
+                document.querySelector(".userName").textContent=user.username;
+                var pictureElement=document.querySelector(".user img");
+                
+                if (user && user.img===null){
+                    var rutePicture="../assets/user/user.png";
+                }else{
+                    var rutePicture="../assets/user/"+user.img;
+                }
+                pictureElement.src=rutePicture
+                //ingreso de datos al container profile
+                document.querySelector(".container.profile .userName").textContent="Usuario: "+user.username;
+                document.querySelector(".container.profile .email").textContent="email: "+user.email;
+                document.querySelector(".container.profile .firstname").textContent="Nombre: "+user.firstname;
+                document.querySelector(".container.profile .lastname").textContent="Apellido: "+user.lastname;
+                document.querySelector(".container.profile .password").textContent="Contraseña: "+user.password;
+                
+                pictureElement=document.querySelector(".container.profile .data img");
+                pictureElement.src=rutePicture;
 
-            //ingreso de servidores
+                //ingreso de servidores
 
-            var servers=user.servers
+                var servers=user.servers
 
-            if (servers.length>1){
-
-                for (var i=0;i<servers.length;i++){
-                    var newDiv = document.createElement("div");
-                    (function(id){
-                        newDiv.onclick=function(){
-                            showChanels(id);
-                        };
-                    })(servers[i].id);
-                    var span_server=document.createElement("span");
-                    span_server.textContent=servers[i].name;
-                    span_server.className="serverName";
-                    
-                    var span_join=document.createElement("span");
-                    span_join.textContent=" __ id#";
-                    
-                    var img_server=document.createElement("img");
-                    img_server.alt="picServer";
-                    if (servers[i].img ===null){
-                        var picture="../assets/server/server.jpg"
-                    }else{
-                        var picture="../assets/server/"+servers[i].img;
-                    };
-                    img_server.src=picture;
-                    
-                    var span_server_id=document.createElement("span");
-                    span_server_id.textContent=servers[i].id;
-                    span_server_id.id=servers[i].id;
-                    
-                    newDiv.appendChild(img_server);
-                    newDiv.appendChild(span_server);
-                    newDiv.appendChild(span_join);
-                    newDiv.appendChild(span_server_id);
-
+                if (servers.length>1){
+                    for (var i=0;i<servers.length;i++){
+                        newServer(servers[i],"serversInfo");
+                }
+                }else{
+                    var newDiv=document.createElement("div");
+                    var newSpan=document.createElement("span");
+                    newSpan.textContent="SIN SERVIDORES SELECCIONADOS"
+                    newDiv.appendChild(newSpan)
                     document.querySelector(".container.info .servers").appendChild(newDiv)
-
                 }
             }else{
-                var newDiv=document.createElement("div");
-                var newSpan=document.createElement("span");
-                newSpan.textContent="SIN SERVIDORES SELECCIONADOS"
-                newDiv.appendChild(newSpan)
-                document.querySelector(".container.info .servers").appendChild(newDiv)
+                document.getElementById("label_not_login").style.display="flex"
+                document.getElementById("label_not_login").textContent="Cotraseña Incorrecta"
+                
             }
-        }else{
-            document.getElementById("label_not_login").style.display="flex"
-            document.getElementById("label_not_login").textContent="Cotraseña Incorrecta"
-            
         }
 
 
@@ -220,14 +198,14 @@ function login(){
 }
 
 function register(){
-    const data = {
+    var data = {
         username:document.querySelector("#registForm input[type='text'][placeholder='Username']").value,
         email:document.querySelector("#registForm input[type='email']").value,
         password:document.querySelector("#registForm input[type='password']").value,
         firstname:document.querySelector("#registForm input[type='text'][placeholder='Nombre']").value,
         lastname:document.querySelector("#registForm input[type='text'][placeholder='Apellido']").value,
     };
-    const jsonData=JSON.stringify(data);
+    var jsonData=JSON.stringify(data);
 
     fetch(`http://127.0.0.1:5001/users/create`,{
         method:'POST',
@@ -270,4 +248,123 @@ const newMessage=(message)=>{
     newMess.appendChild(newContent);
     chat_panel.appendChild(newMess);
 
+}
+const newServer=(server,element)=>{
+    var newDiv = document.createElement("div");
+    (function(id){
+        newDiv.onclick=function(){
+            showChanels(id,server.name);
+        };
+    })(server.id,server.name);
+    var span_server=document.createElement("span");
+    span_server.textContent=server.name;
+    span_server.className="serverName";
+    
+    var span_join=document.createElement("span");
+    span_join.textContent=" __ id#";
+    
+    var img_server=document.createElement("img");
+    img_server.alt="picServer";
+    if (server.img ===null){
+        var picture="../assets/server/server.jpg"
+    }else{
+        var picture="../assets/server/"+server.img;
+    };
+    img_server.src=picture;
+    
+    var span_server_id=document.createElement("span");
+    span_server_id.textContent=server.id;
+    span_server_id.id=server.id;
+    
+    newDiv.appendChild(img_server);
+    newDiv.appendChild(span_server);
+    newDiv.appendChild(span_join);
+    newDiv.appendChild(span_server_id);
+
+    document.getElementById(element).appendChild(newDiv)
+}
+function createServer(){
+    var user=parseInt(document.getElementById("user_Id").textContent);
+    var name_input=document.getElementById("nameServerNew").value;
+    var description_input=document.getElementById("descriptionServerNew").value;
+    const dataserver= {
+        name:name_input,
+        description:description_input,
+    };
+    
+    var jsonDataServer=JSON.stringify(dataserver);
+    fetch(`http://127.0.0.1:5001/servers/create`,{
+        method:'POST',
+        body:jsonDataServer,
+        headers:{
+            'Content-Type':'application/json'
+        },
+    })
+    .then(response=>response.json())
+    .then (data =>{
+        var server=data;
+        alert(server.mensaje);
+        dataserver.id=server.id
+        dataserver.img=null;
+        createMember(user,server.id[0]);
+        newServer(dataserver);
+        
+    })
+    .catch(error=>{
+        console.error("Error al crear Servidor",error)
+    });
+}
+
+function createMember(id_user,id_server){
+    
+    var data_member={
+        user_id:id_user,
+        server_id:id_server,
+    }
+    const JsonDataMember=JSON.stringify(data_member);
+    fetch(`http://127.0.0.1:5001/members/create`,{
+        method:'POST',
+        body:JsonDataMember,
+        headers:{
+            'Content-Type':'application/json'
+        },
+    })
+    .then(response=>{
+        if (response.ok){
+            console.log("se registro con exito la relacion server_user")
+        }
+    })
+    .catch(error=>{
+        console.error(error)
+    });
+}
+
+function listServers(){
+
+    fetch(`http://127.0.0.1:5001/servers/get`,{
+        method:'GET',
+        /*credentials:'include'*/
+    })
+    .then (response => response.json()) 
+    .then(data =>{
+        const dataListServer = data;
+        document.getElementById("serversList").innerHTML=""
+        for (var i=0;i<dataListServer.length;i++){
+            var li=document.createElement("li");
+            var spanName=document.createElement("span");
+                spanName.textContent=dataListServer[i].name;
+            var spanSplit=document.createElement("span");
+                spanSplit.textContent="---#";
+            var spanId=document.createElement("span");
+                spanId.textContent=dataListServer[i].id;
+            li.appendChild(spanName);
+            li.appendChild(spanSplit);
+            li.appendChild(spanId);
+            document.getElementById("serversList").appendChild(li)
+        }
+        showContainer("search");
+    })
+    .catch(error=>{
+        console.error("Se produjo un error en el listado de servidores")
+    })
 }

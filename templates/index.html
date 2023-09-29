@@ -4,25 +4,20 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="../styles/style.css">
-    <!--<script src="../scripts/script.js"></script>-->
 </head>
 <body>
     <!--Inicio containers-->
     <div class="container info" id="info">
         <div class="search_servers">
-            <button onclick="showContainer('search')">Buscar</button>
-            <button onclick="showContainer('profile')">perfil</button>
+            <button onclick="listServers()">Buscar</button>
+            <button onclick="showFloat('createServer')">Crear Servidor</button>
         </div>
-        <div class="servers">
-            <!--<div onclick="showChanels('chanels')">
-                <img src="../assets/server/server.jpg" alt="picServer">
-                <span class="serverName"> Example Server</span>
-            </div>-->
+        <div class="servers" id="serversInfo">
         </div>
         <div class="user">
            <img src="../assets/user/user.png" alt="picUsuario" onclick="showContainer('profile')">
            <span>#</span>
-           <span class="userId">000</span>
+           <span class="userId" id="user_Id">000</span>
            <span class="userName" id="userName">Username</span>
            <span></span>
            <a href="#" onclick="location.reload()">Login</a>
@@ -30,6 +25,7 @@
     </div>
 
     <div id="chanels" class="container chanels">
+        <div id="titleChannel"></div>
         <div class="listChanels">
             <!--<span>Canal1</span>-->
         </div>
@@ -55,18 +51,14 @@
     </div>
     
     <div class="container search" id="search">
-       <button onclick="showContainer('chat')">x</button>
+       <button onclick="hideElement('search')">x</button>
        Busca servidores
        <div>
-           <p onclick="showFloat('createServer')">Crear Server</p>
-       </div>
-       <div>
            Servers disponibles
-           <ul>
-               <li><p onclick="showFloat('joinServer')">Server1</p></li>
+           <ul id="serversList">
+               
            </ul>
        </div>
-       <div>Contactos</div>
     </div>
     
     <div class="container profile" id="profile">
@@ -118,10 +110,11 @@
         </div>
         
         <div class="float" id="createServer">
-            <form action="?">
+            <form>
+                <button onclick="hideElement('window')">x</button>
                 <span>Crear Servidor</span>
-                <span>Nombre:</span><input type="text" placeholder="Server">
-                <input type="submit" value="Cancelar">
+                <span>Nombre:</span><input type="text" id="nameServerNew" placeholder="Server">
+                <span>Descripcion:</span><input type="text" id="descriptionServerNew" placeholder="Description">
                 <input type="submit" value="Crear">
             </form>
         </div>
