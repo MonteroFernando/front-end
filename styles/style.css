@@ -21,7 +21,7 @@ body{
     background:var(--color1);
 }
 .container.info>.servers{
-    height:90vh;
+    height:85vh;
     
 }
 .container.info>.servers>div{
@@ -51,7 +51,7 @@ body{
 }
 /*chat*/
 .container.chat{
-    width:70%;
+    width:40%;
     display: none;
 }
 .container.chat>.chatSpace{
@@ -67,7 +67,7 @@ body{
     width:100%;
 }
 .container.chat>.smsSpace>form>input[type=text]{
-    width:90%;
+    width:85%;
     height:6vh;
     background: var(--color4);
     border: none;
@@ -83,7 +83,7 @@ body{
     display:none;
 }
 .container.chanels>.listChanels{
-    height:90vh;
+    height:75vh;
     background:var(--color3);
 }
 .container.chanels>.newChanel{

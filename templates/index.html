@@ -35,9 +35,11 @@
     </div>
 
     <div class="container chat" id="chat">
-       <div class="headServer">
-           <img src="../assets/server.jpg" alt="picServer">
-           <span class="serverName">serverName</span>
+       <div class="headServer",id="headServer">
+           <img src="../assets/default/chat.png" alt="picchat">
+           <span class="serverName" id="serverName">serverName</span>
+           <span>---#</span>
+           <span class="serverId">000</span>
         </div>
         <div class="chatSpace" id="chatSpace">
             <!--<span>hola a todos</span>-->
@@ -110,8 +112,8 @@
         </div>
         
         <div class="float" id="createServer">
+            <button onclick="hideElement('window')">x</button><br><br>
             <form>
-                <button onclick="hideElement('window')">x</button>
                 <span>Crear Servidor</span>
                 <span>Nombre:</span><input type="text" id="nameServerNew" placeholder="Server">
                 <span>Descripcion:</span><input type="text" id="descriptionServerNew" placeholder="Description">

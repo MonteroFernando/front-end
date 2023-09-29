@@ -36,10 +36,13 @@ const hideElement=(id)=>{
 //toggle chanels
 const showChanels=(id,name)=>{
     var chan=document.getElementById("chanels");
-    var h2Name=document.createElement("h2");
-    h2Name.textContent=name;
+    var spanId=document.createElement("span");
+    spanId.textContent=id;
+    var h2channel=document.createElement("h2")
+    h2channel.textContent="Channels Servidor " + '"' + name +'"' 
     document.getElementById("titleChannel").innerHTML=""
-    document.getElementById("titleChannel").appendChild(h2Name)
+    document.getElementById("titleChannel").appendChild(h2channel)
+    document.getElementById("titleChannel").appendChild(spanId)
 
     var listChannels = document.querySelector(".listChanels");
     if(chan.style.display=="block"){
@@ -55,11 +58,11 @@ const showChanels=(id,name)=>{
         .then (data=>{
                 data.forEach(channel => {
                     var newDiv=document.createElement("div");
-                    (function(id){
+                    (function(id,name){
                         newDiv.onclick=function(){
-                            showChats(id);
+                            showChats(id,name);
                         };
-                    })(channel.id);
+                    })(channel.id,channel.name);
                     var span_name=document.createElement("span");
                     span_name.textContent=channel.name;
                     var span_join=document.createElement("span");
@@ -80,16 +83,18 @@ const showChanels=(id,name)=>{
     }
 }
 //togle chat
-const showChats=(id)=>{
+const showChats=(id,name)=>{
     var chat=document.getElementById("chat");
     var messageList=document.getElementById("chatSpace");
     messageList.innerHTML="";
-    var user=document.getElementById("userName").textContent
+    var user=document.getElementById("userName").textContent;
     if (chat.style.display==="block"){
         chat.style.display="none";
         messageList.innerHTML="";
     }else{
         chat.style.display="block";
+        document.getElementById("serverName").textContent=name;
+        document.querySelector(".serverId").textContent=id;
         fetch(`http://127.0.0.1:5001/messages/get?id_channels=${id}`,{
             method:'GET',
 
