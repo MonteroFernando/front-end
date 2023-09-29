@@ -51,6 +51,7 @@ body{
 /*chat*/
 .container.chat{
     width:70%;
+    display: none;
 }
 .container.chat>.chatSpace{
     height:80vh;

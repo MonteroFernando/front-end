@@ -32,18 +32,54 @@ const showFloat=(id)=>{
 //toggle chanels
 const showChanels=(id)=>{
     var chan=document.getElementById("chanels");
+    var listChannels = document.querySelector(".listChanels");
     if(chan.style.display=="block"){
         chan.style.display="none";
-        document.querySelector(".listChanels").innerHTML = ''
+        listChannels.innerHTML = ""
     }else{
         chan.style.display="block";
-        var m=document.createElement("span");
-        m.textContent=id;
-        var listChanels = document.querySelector(".listChanels");
-        listChanels.appendChild(m);
+        fetch (`http://127.0.0.1:5001/channels/get?server_id=${id}`,{
+            method:'GET',
+        })
+        .then (response=>response.json())
+        .then (data=>{
+                data.forEach(channel => {
+                    var newDiv=document.createElement("div");
+                    (function(id){
+                        newDiv.onclick=function(){
+                            showChats(id);
+                        };
+                    })(channel.id);
+                    var span_name=document.createElement("span");
+                    span_name.textContent=channel.name;
+                    var span_join=document.createElement("span");
+                    span_join.textContent=" __#";
+                    var span_id=document.createElement("span");
+                    span_id.textContent=channel.id;
+                    
+                    newDiv.appendChild(span_name);
+                    newDiv.appendChild(span_join);
+                    newDiv.appendChild(span_id);
+                    listChannels.appendChild(newDiv);
+            });
 
-        
+        })
+        .catch(error=>{
+            console.error('Error al obtener la lista de canales')
+        });
     }
+}
+//togle chat
+const showChats=(id)=>{
+    var chat=document.getElementById("chat");
+    var messageList=document.getElementById("chatSpace");
+    if (chat.style.display==="block"){
+        chat.style.display="none";
+        messageList.innerHTML="";
+    }else{
+        chat.style.display="block";
+    }
+
 }
 
 //Eventos en formularios
